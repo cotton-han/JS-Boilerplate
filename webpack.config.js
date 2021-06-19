@@ -1,17 +1,24 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'none',
-  entry: './src/index.js',
+  mode: 'development',
+  entry: ['@babel/polyfill', './src/js/index.js'],
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
   module: {
     rules: [
       {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ['eslint-loader'],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -21,8 +28,13 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+    }),
+  ],
   stats: {
     colors: true,
   },
-  devtool: 'cheap-eval-source-map',
+  devtool: 'source-map',
 };
