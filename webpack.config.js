@@ -33,8 +33,17 @@ module.exports = {
       template: './public/index.html',
     }),
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+    },
+  },
   stats: {
     colors: true,
   },
   devtool: 'source-map',
+  devServer: {
+    port: 3000,
+    open: true,
+  },
 };
