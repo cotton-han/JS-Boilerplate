@@ -216,7 +216,7 @@ nvm install [.nvmrc에 기술된 node version]
 ```
 
 ### Jest
-
+- 공식 문서 : https://jestjs.io/docs/getting-started
 - 설치
 
 ```bash
