@@ -13,9 +13,8 @@
     - package.json scripts에 build 명령어를 추가하고 webpack 지정
 
         ```json
-        // package.json
+        /* package.json */
         "scripts": {
-            "test": "echo \"Error: no test specified\" && exit 1",
             "build": "webpack"
         },
         ```
@@ -29,6 +28,7 @@
 ### Webpack
 
 ```jsx
+/* webpack.config.js */
 const path = require('path');
 
 module.exports = {
@@ -169,6 +169,7 @@ CleanWebpackPlugin은 빌드 이전 결과물을 제거하는 플러그인으로
 빌드 하기 전에 원본 코드 상에 eslint 에러가 발생하면 빌드에서 에러가 났음을 표시해주고 빌드에 실패한다.
 
 ```jsx
+/* webpack.config.js */
 module: {
     rules: [
       {
@@ -224,8 +225,8 @@ npm i -D jest babel-jest jest-cli
 
 - 테스트 스크립트 지정
 
-```bash
-// package.json
+```jsx
+ /* package.json */
 "scripts": {
     "test": "jest",
     "build": "webpack",
@@ -236,8 +237,18 @@ npm i -D jest babel-jest jest-cli
 - babel 설정 - 테스트 코드에서 es6를 인식하기 위한 설정
 - webpack에 같은 설정이 있는 이유는 빌드 결과를 트랜스파일링 하기 위함
 
-```bash
+```jsx
+/* babel.config.js */
 module.exports = {
   presets: [['@babel/preset-env', { targets: { node: 'current' } }]],
 };
+```
+
+- alias 설정
+
+```jsx
+/* jest.config.js */
+moduleNameMapper: {
+'@/(.*)$': '<rootDir>/src/$1',
+}
 ```
