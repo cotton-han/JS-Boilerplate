@@ -1,5 +1,3 @@
-# boilerplate
-
 ## gitignore
 
 [https://www.toptal.com/developers/gitignore](https://www.toptal.com/developers/gitignore)
@@ -199,19 +197,15 @@ module: {
 
 ### @babel-polyfill
 
-Babel을 사용하여 ES6+ 코드를 ES5 이하로 트랜스파일링하여도 브라우저가 지원하지 않는 코드가 남아 있을 수 있다. 예를 들어, ES6에서 추가된 Promise, Object.assign, Array.from 등은 ES5 이하로 트랜스파일링하여도 대체할 ES5 기능이 없기 때문에 그대로 남아 있다.
-
-Promise, Object.assign, Array.from 등과 같이 ES5 이하로 대체할 수 없는 기능은 트랜스파일링이 되지 않는다.
-
-따라서 오래된 브라우저에서도 ES6+에서 새롭게 추가된 객체나 메소드를 사용하기 위해서는 @babel/polyfill을 설치해야 한다.
-
-babel-polyfill은 개발 환경에서만 사용하는 것이 아니라 실제 환경에서도 사용하여야 하므로 --save-dev 옵션으로 개발 설치를 하지 않도록 한다.
+- Babel을 사용하여 ES6+ 코드를 ES5 이하로 트랜스파일링하여도 브라우저가 지원하지 않는 코드가 남아 있을 수 있다. 예를 들어, ES6에서 추가된 Promise, Object.assign, Array.from 등은 ES5 이하로 트랜스파일링하여도 대체할 ES5 기능이 없기 때문에 그대로 남아 있다.
+- Promise, Object.assign, Array.from 등과 같이 ES5 이하로 대체할 수 없는 기능은 트랜스파일링이 되지 않는다.
+- 따라서 오래된 브라우저에서도 ES6+에서 새롭게 추가된 객체나 메소드를 사용하기 위해서는 @babel/polyfill을 설치해야 한다.
+- babel-polyfill은 개발 환경에서만 사용하는 것이 아니라 실제 환경에서도 사용하여야 하므로 --save-dev 옵션으로 개발 설치를 하지 않도록 한다.
 
 ### .nvmrc
 
-.nvmrc는 NVM(node version manager)의 개별 프로젝트를 위한 설정 파일
-
-.nvmrc를 통해 특정 프로젝트에 사용되는 버전을 기술 할 수 있으면 NVM을 이용해 프로젝트마다 상이할 수 있는 node version을 빠르게 전환 하도록 도와 준다.
+- .nvmrc는 NVM(node version manager)의 개별 프로젝트를 위한 설정 파일
+- .nvmrc를 통해 특정 프로젝트에 사용되는 버전을 기술 할 수 있으면 NVM을 이용해 프로젝트마다 상이할 수 있는 node version을 빠르게 전환 하도록 도와 준다.
 
 ```bash
 brew install nvm
@@ -220,8 +214,30 @@ echo "[node -v 결과]" > .nvmrc # 처음 생성할 때만 해당: 현재 노드
 nvm install [.nvmrc에 기술된 node version]
 ```
 
-### 참고
+### Jest
 
-babel.config.js 에 설정한이유는 테스트 코드에서 es6를 인식하기 위함
+- 설치
 
-webpack에 같은 설정이 있는 이유는 빌드 결과를 트랜스파일링 하기 위함
+```bash
+npm i -D jest babel-jest jest-cli
+```
+
+- 테스트 스크립트 지정
+
+```bash
+// package.json
+"scripts": {
+    "test": "jest",
+    "build": "webpack",
+    "dev": "webpack serve"
+},
+```
+
+- babel 설정 - 테스트 코드에서 es6를 인식하기 위한 설정
+- webpack에 같은 설정이 있는 이유는 빌드 결과를 트랜스파일링 하기 위함
+
+```bash
+module.exports = {
+  presets: [['@babel/preset-env', { targets: { node: 'current' } }]],
+};
+```
