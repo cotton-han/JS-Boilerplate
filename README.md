@@ -72,66 +72,37 @@ module.exports = {
     - 소스 맵(Source Map)이란 배포용으로 빌드한 파일과 원본 파일을 서로 연결시켜주는 기능
         - 디버깅을 위한 기능
 
-### eslint & prettier
+### eslint & standard
 
 - eslint 설치
-    - `npm i -g eslint babel-eslint`
-        - `babel-eslint`: 없다면 import, export 같은 es6 문법에서 에러가 난다.
-- prettier 설치(충돌 나지 않게 도와주는 라이브러리도 함께 설치)
-    - `npm i -D prettier eslint-config-prettier eslint-plugin-prettier`
+    - `npm i -g eslint`
 - 초기 .eslintrc.js 설정파일을 자동으로 만들어주는 명령어
     - `eslint —init`
 
-        ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e1f4ba74-980e-4219-baef-89e32605b3df/_2021-06-18__3.30.08.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e1f4ba74-980e-4219-baef-89e32605b3df/_2021-06-18__3.30.08.png)
+        ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f5e78d5f-1ef9-46b9-a190-e2e3f0d10b45/_2021-06-21__1.41.15.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f5e78d5f-1ef9-46b9-a190-e2e3f0d10b45/_2021-06-21__1.41.15.png)
 
         - `env`: 프로젝트의 사용 환경을 설정
         - `parserOptions`: 자바스크립트 버전, 모듈 사용 여부 등을 설정
         - `extends`: 확장 설정
         - `rules`: 규칙 설정
         - `plugins`: 플러그인 설정
-        - prettier 설정
-            - `trailingComma`
-
-                객체, 배열, 함수 등의 후행에 쉼표를 찍을지 제어합니다.
-
-                `none` - 쉼표를 붙히지 않음
-
-                `es5`  - ES5에서 유효한 후행 쉼표(객체, 배열 등)
-
-                `all`  - 함수 인수에도 후행 쉼표
 
         ```jsx
-        /* .eslintrc.js */
         module.exports = {
           env: {
             browser: true,
             es2021: true,
-            node: true,
             jest: true,
+            node: true
           },
-          extends: ['eslint:recommended', 'eslint-config-prettier'],
-          plugins: ['prettier'],
+          extends: ['standard'],
           parserOptions: {
             ecmaVersion: 12,
-            sourceType: 'module',
-            parser: 'babel-eslint',
+            sourceType: 'module'
           },
           rules: {
-            'prettier/prettier': [
-              'error',
-              {
-                trailingComma: 'es5',
-                bracketSpacing: true,
-                tabWidth: 2,
-                semi: true,
-                printWidth: 80,
-                singleQuote: true,
-              },
-            ],
-            'no-unused-vars': 'warn',
-            'no-var': 'warn',
-          },
-        };
+          }
+        }
         ```
 
 - eslint 포매팅을 무시할 디렉토리 또는 파일들을 명시
@@ -216,7 +187,7 @@ nvm install [.nvmrc에 기술된 node version]
 ```
 
 ### Jest
-- 공식 문서 : https://jestjs.io/docs/getting-started
+
 - 설치
 
 ```bash
