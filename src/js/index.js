@@ -1,9 +1,9 @@
-import { sum } from '@/js/sum';
+import { sum } from '@/js/sum'
 
-let x = 5;
-console.log(x);
+const x = 5
+console.log(x)
 
-const add = (a, b) => a + b;
-add(1, 2);
+const add = (a, b) => a + b
+add(1, 2)
 
-document.body.innerText = sum(1, 2);
+document.body.innerText = sum(1, 2)

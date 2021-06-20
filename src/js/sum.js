@@ -1,5 +1,12 @@
-function sum(a, b) {
-  return a + b;
+function sum (a, b) {
+  return a + b
 }
 
-export { sum };
+const a = 4
+const b = 4
+
+if (a === b) {
+  console.log()
+}
+
+export { sum }
