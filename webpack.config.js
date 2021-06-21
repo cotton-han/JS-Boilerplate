@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: './src/js/index.js',
+  entry: ['core-js/stable', './src/js/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -23,7 +23,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: [['@babel/env', {
+              useBuiltIns: 'entry',
+              corejs: 3,
+              targets: {
+                browsers: ['last 3 versions', 'ie >= 11'],
+                node: 'current'
+              }
+            }]]
           }
         }
       }
