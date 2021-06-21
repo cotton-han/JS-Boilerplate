@@ -1,5 +1,5 @@
 {
-  "name": "settings",
+  "name": "js-boilerplate",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -22,6 +22,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-webpack-plugin": "^2.5.4",
     "html-webpack-plugin": "^5.3.1",
+    "husky": "^6.0.0",
     "jest": "^27.0.4",
     "webpack": "^5.39.1",
     "webpack-cli": "^4.7.2",
