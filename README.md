@@ -16,6 +16,7 @@
         /* package.json */
         "scripts": {
             "build": "webpack"
+            "build:prod": "webpack --env=production"
         },
         ```
 
@@ -25,38 +26,64 @@
         - @babel/preset-env : 구문변환에 대한 별도의 설정없이 최신 자바스크립트를 구형 브라우저에 사용할 수 있게 해주는 스마트 사전
         - babel-loader : es6 를 es5 로 바꿔주는 바벨을 웹팩에서 사용할 수 있게 해주는 역할
 
+    ```jsx
+    /* babel.config.js */
+    module.exports = {
+      presets: [['@babel/env', {
+        useBuiltIns: 'usage',
+        corejs: 3,
+        targets: {
+          browsers: ['last 3 versions', 'ie >= 11'],
+          node: 'current'
+        }
+      }]]
+    }
+    ```
+
 ### Webpack
 
 ```jsx
-/* webpack.config.js */
-const path = require('path');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 
-module.exports = {
-  mode: 'none',
-  entry: './src/index.js',
+module.exports = (env) => ({
+  mode: env.production ? 'production' : 'development',
+  entry: ['core-js/stable', './src/js/index.js'],
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'main.bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+    clean: true
   },
   module: {
     rules: [
       {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
-    ],
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html'
+    }),
+    new ESLintPlugin()
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src/')
+    }
   },
   stats: {
-    colors: true,
+    colors: true
   },
   devtool: 'source-map',
-};
+  devServer: {
+    port: 3000,
+    open: true
+  }
+})
 ```
 
 - mode : 실행 모드
@@ -71,6 +98,8 @@ module.exports = {
 - devtool : 개발을 용이하게 하기 위해 소스맵을 제공하는 옵션
     - 소스 맵(Source Map)이란 배포용으로 빌드한 파일과 원본 파일을 서로 연결시켜주는 기능
         - 디버깅을 위한 기능
+- plugins
+    - eslint-webpack-plugin: 빌드 하기 전에 원본 코드 상에 eslint 에러가 발생하면 빌드에서 에러가 났음을 표시해주고 빌드에 실패한다.
 
 ### eslint & standard
 
@@ -131,42 +160,6 @@ module.exports = {
 
 template html을 바탕으로 빌드후에 제대로된 html파일을 만들어준다.
 
-### clean-webpack-plugin
-
-CleanWebpackPlugin은 빌드 이전 결과물을 제거하는 플러그인으로 빌드 결과물은 웹팩에서 아웃풋 경로에 설장한 곳으로 폴더 및 파일들이 모이는데 빌드 했을시 이전 빌드내용이 삭제되지 않고 그대로 남아있는 경우도 있어 이것을 해결해주는 플러그인이다.
-
-### eslint-loader
-
-빌드 하기 전에 원본 코드 상에 eslint 에러가 발생하면 빌드에서 에러가 났음을 표시해주고 빌드에 실패한다.
-
-```jsx
-/* webpack.config.js */
-module: {
-    rules: [
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['eslint-loader'],
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
-    ],
-  },
-```
-
-[https://www.npmjs.com/package/eslint-loader](https://www.npmjs.com/package/eslint-loader)
-
-다른 로더 전에 실행되게끔 설정 - 안전하게 사용하는 방법
-
 ### .nvmrc
 
 - .nvmrc는 NVM(node version manager)의 개별 프로젝트를 위한 설정 파일
@@ -193,8 +186,6 @@ npm i -D jest babel-jest jest-cli
  /* package.json */
 "scripts": {
     "test": "jest",
-    "build": "webpack",
-    "dev": "webpack serve"
 },
 ```
 
