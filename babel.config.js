@@ -1,3 +1,10 @@
 module.exports = {
-  presets: [['@babel/preset-env', { targets: { node: 'current' } }]],
-};
+  presets: [['@babel/env', {
+    useBuiltIns: 'usage',
+    corejs: 3,
+    targets: {
+      browsers: ['last 3 versions', 'ie >= 11'],
+      node: 'current'
+    }
+  }]]
+}

@@ -1,38 +1,21 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 
-module.exports = {
-  mode: 'development',
+module.exports = (env) => ({
+  mode: env.production ? 'production' : 'development',
   entry: ['core-js/stable', './src/js/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    clean: true
   },
   module: {
     rules: [
       {
-        enforce: 'pre',
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ['eslint-loader']
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [['@babel/env', {
-              useBuiltIns: 'entry',
-              corejs: 3,
-              targets: {
-                browsers: ['last 3 versions', 'ie >= 11'],
-                node: 'current'
-              }
-            }]]
-          }
-        }
+        use: ['babel-loader']
       }
     ]
   },
@@ -40,7 +23,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html'
     }),
-    new CleanWebpackPlugin()
+    new ESLintPlugin()
   ],
   resolve: {
     alias: {
@@ -55,4 +38,4 @@ module.exports = {
     port: 3000,
     open: true
   }
-}
+})
