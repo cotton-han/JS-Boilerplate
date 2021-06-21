@@ -1,3 +1,5 @@
+# JS-boilerplate
+
 ## Installation
 
 ```powershell
