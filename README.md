@@ -40,6 +40,8 @@
     }
     ```
 
+- webpack 바깥에 따로 설정 파일을 만드는 이유는 빌드 파일 이외의 테스트 파일의 경우에도 바벨이 적용되도록 하기 위함
+
 ### Webpack
 
 ```jsx
@@ -177,7 +179,7 @@ nvm install [.nvmrc에 기술된 node version]
 - 설치
 
 ```bash
-npm i -D jest babel-jest jest-cli
+npm i -D jest core-js
 ```
 
 - 테스트 스크립트 지정
@@ -185,18 +187,8 @@ npm i -D jest babel-jest jest-cli
 ```jsx
  /* package.json */
 "scripts": {
-    "test": "jest",
+    "test": "jest"
 },
-```
-
-- babel 설정 - 테스트 코드에서 es6를 인식하기 위한 설정
-- webpack에 같은 설정이 있는 이유는 빌드 결과를 트랜스파일링 하기 위함
-
-```jsx
-/* babel.config.js */
-module.exports = {
-  presets: [['@babel/preset-env', { targets: { node: 'current' } }]],
-};
 ```
 
 - alias 설정
