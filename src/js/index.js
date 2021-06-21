@@ -6,4 +6,7 @@ console.log(x)
 const add = (a, b) => a + b
 add(1, 2)
 
+const array = Array.from([1, 2, 3])
+console.log(array)
+
 document.body.innerText = sum(1, 2)
