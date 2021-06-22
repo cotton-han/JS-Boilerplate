@@ -1,4 +1,4 @@
-import { sum } from '@/js/sum'
+import { sum } from '@/util/sum'
 
 const x = 5
 console.log(x)
