@@ -1,4 +1,4 @@
-# JS-boilerplate
+# JS-Boilerplate
 
 ## Installation
 
