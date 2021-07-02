@@ -1,10 +1,6 @@
-## gitignore
+### gitignore
 
-[https://www.toptal.com/developers/gitignore](https://www.toptal.com/developers/gitignore)
-
-자동으로 .gitignore 에 들어갈 내용을 만들어주는 사이트
-
-보통 node로 검색해서 나오는 결과를 활용
+- git에 올라가면 안되는 파일, 디렉터리 지정
 
 ### webpack & babel 구성을 위해 필요한 라이브러리
 

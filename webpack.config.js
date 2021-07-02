@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 
 module.exports = {
-  entry: ['core-js/stable', './src/js/index.js'],
+  entry: ['core-js/stable', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -28,9 +28,6 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'src/')
     }
-  },
-  stats: {
-    colors: true
   },
   devtool: 'source-map',
   devServer: {

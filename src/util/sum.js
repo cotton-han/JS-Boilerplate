@@ -6,7 +6,7 @@ const a = 4
 const b = 4
 
 if (a === b) {
-  console.log('dsadasd')
+  console.log('sample')
 }
 
 export { sum }
